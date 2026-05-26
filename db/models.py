@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Text, DateTime
+from sqlalchemy.sql import func
 from db.connection import Base
 
 class Job(Base):
@@ -6,6 +7,9 @@ class Job(Base):
 
     id = Column(Integer, primary_key=True)
     company = Column(String, nullable=False)
-    role = Column(String, nullable=False)
-    location = Column(String, nullable=False)
-    salary = Column(Integer, nullable=True)
+    title = Column(String, nullable=False)
+    url = Column(String, nullable=True)
+    tech_stack = Column(String, nullable=True)
+    seniority = Column(String, nullable=True)
+    description = Column(Text, nullable=True)
+    created_at = Column(DateTime, server_default=func.now())

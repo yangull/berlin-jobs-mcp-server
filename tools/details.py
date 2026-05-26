@@ -8,18 +8,19 @@ def get_job_details(job_id: int) -> str:
     """
     session = get_db_session()
     try:
-        job = session.query(Job).filter(Job.id == job_id).first()  # .first() returns None if not found
+        job = session.query(Job).filter(Job.id == job_id).first()
 
         if not job:
             return f"No job found with ID {job_id}."
 
-        salary_str = f"€{job.salary:,}" if job.salary else "Not specified"
         return (
             f"Job ID: {job.id}\n"
-            f"Role: {job.role}\n"
+            f"Title: {job.title}\n"
             f"Company: {job.company}\n"
-            f"Location: {job.location}\n"
-            f"Salary: {salary_str}"
+            f"Seniority: {job.seniority or 'Unknown'}\n"
+            f"Tech Stack: {job.tech_stack or 'Not specified'}\n"
+            f"URL: {job.url or 'Not available'}\n"
+            f"Description:\n{job.description or 'Not available'}"
         )
     finally:
         session.close()
